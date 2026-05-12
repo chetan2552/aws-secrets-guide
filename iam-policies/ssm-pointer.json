@@ -1,0 +1,19 @@
+{
+  "_comment": "SSM Parameter Store Pointer — Method 4",
+  "_use_case": "Read the secret ARN from SSM, then fetch the secret",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowReadSSMPointer",
+      "Effect": "Allow",
+      "Action": "ssm:GetParameter",
+      "Resource": "arn:aws:ssm:us-east-1:YOUR_ACCOUNT_ID:parameter/myapp/secret-arn"
+    },
+    {
+      "Sid": "AllowGetSpecificSecret",
+      "Effect": "Allow",
+      "Action": "secretsmanager:GetSecretValue",
+      "Resource": "arn:aws:secretsmanager:us-east-1:YOUR_ACCOUNT_ID:secret:YOUR_SECRET_PREFIX-*"
+    }
+  ]
+}

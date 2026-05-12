@@ -1,0 +1,29 @@
+{
+  "_comment": "EC2 Recommended IAM Policy — attach to your EC2 IAM Role (e.g. CloudWatch-Monitoring)",
+  "_use_case": "Method 5 and Method 6: EC2 instance tag-based secret retrieval",
+  "_instructions": [
+    "1. Go to IAM → Roles → your EC2 role (e.g. CloudWatch-Monitoring)",
+    "2. Add permissions → Create inline policy → JSON tab",
+    "3. Paste this policy (remove the _comment fields first)",
+    "4. Name it: SecretsManagerEC2Access",
+    "5. Save"
+  ],
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowGetSpecificSecret",
+      "Effect": "Allow",
+      "Action": [
+        "secretsmanager:GetSecretValue",
+        "secretsmanager:DescribeSecret"
+      ],
+      "Resource": "arn:aws:secretsmanager:us-east-1:YOUR_ACCOUNT_ID:secret:YOUR_SECRET_PREFIX-*"
+    },
+    {
+      "Sid": "AllowReadOwnEC2Tags",
+      "Effect": "Allow",
+      "Action": "ec2:DescribeInstances",
+      "Resource": "*"
+    }
+  ]
+}

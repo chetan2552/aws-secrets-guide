@@ -1,0 +1,22 @@
+{
+  "_comment": "BatchGetSecretValue with Tag Filter — Method 1",
+  "_use_case": "Fetch secrets by tag without knowing the secret name",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowBatchGetByTag",
+      "Effect": "Allow",
+      "Action": "secretsmanager:BatchGetSecretValue",
+      "Resource": "*"
+    },
+    {
+      "Sid": "AllowGetSpecificSecret",
+      "Effect": "Allow",
+      "Action": [
+        "secretsmanager:GetSecretValue",
+        "secretsmanager:DescribeSecret"
+      ],
+      "Resource": "arn:aws:secretsmanager:us-east-1:YOUR_ACCOUNT_ID:secret:YOUR_SECRET_PREFIX-*"
+    }
+  ]
+}

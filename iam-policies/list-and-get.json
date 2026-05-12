@@ -1,0 +1,23 @@
+{
+  "_comment": "ListSecrets + Scoped GetSecretValue — Methods 3 and 6 (local path)",
+  "_warning": "ListSecrets MUST have Resource: * — AWS does not support specific ARN here",
+  "_warning2": "ListSecrets does NOT support secretsmanager:Name as a condition key",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowListAllSecretMetadata",
+      "Effect": "Allow",
+      "Action": "secretsmanager:ListSecrets",
+      "Resource": "*"
+    },
+    {
+      "Sid": "AllowGetOnlyYourSecret",
+      "Effect": "Allow",
+      "Action": [
+        "secretsmanager:GetSecretValue",
+        "secretsmanager:DescribeSecret"
+      ],
+      "Resource": "arn:aws:secretsmanager:us-east-1:YOUR_ACCOUNT_ID:secret:YOUR_SECRET_PREFIX-*"
+    }
+  ]
+}
